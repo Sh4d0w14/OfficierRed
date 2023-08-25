@@ -1,14 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "Red Flag Domains",
+  "name": "Officier Red",
   "version": "1.0",
   "background": {
     "service_worker": "background.js"
   },
   "permissions": [
     "webRequest",
-    "storage"
-  ],
+    "webRequestBlocking",
+    "http://localhost:5000/*",
+    "storage",
+    "notifications"
+],
   "host_permissions": [
     "http://localhost:5000/*"
   ],

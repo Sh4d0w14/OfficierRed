@@ -1,6 +1,7 @@
+// Initialisez une variable pour stocker les domaines bloqués
 let blockedSites = [];
 
-// Récupérer les données depuis votre serveur local (votre script Python)
+// Fonction pour récupérer les domaines bloqués depuis votre serveur Flask
 function fetchBlockedDomains() {
     fetch('http://localhost:5000/getData')
         .then(response => {
@@ -10,21 +11,23 @@ function fetchBlockedDomains() {
             return response.json();
         })
         .then(data => {
-            // Stockez les domaines dans le stockage local ou en mémoire pour utilisation future
-            blockedSites = data;
-            chrome.storage.local.set({ "blockedDomains": data });
+            blockedSites = data; // Mettez à jour la variable globale
+            chrome.storage.local.set({ "blockedDomains": data }); // Stockez également dans le stockage local
         })
         .catch(error => {
             console.error('Erreur lors de la récupération des données:', error);
         });
 }
 
-// Appel de la fonction au démarrage de l'extension
+// Appelez la fonction au démarrage de l'extension pour récupérer la liste initiale
 fetchBlockedDomains();
 
+// Fonction d'écoute pour bloquer les requêtes web vers les domaines spécifiés
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
         const currentDomain = new URL(details.url).hostname;
+
+        // Vérifiez si le domaine courant est dans la liste des domaines bloqués
         if (blockedSites.includes(currentDomain)) {
             chrome.notifications.create({
                 type: 'basic',
@@ -39,4 +42,5 @@ chrome.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
-// Si vous souhaitez actualiser les données à intervalles réguliers, vous pouvez utiliser setTimeout ou setInterval.
+// Si vous décidez d'ajouter une fonctionnalité pour actualiser la liste à intervalles réguliers, utilisez la fonction ci-dessous :
+// setInterval(fetchBlockedDomains, 3600000); // Met à jour toutes les heures
