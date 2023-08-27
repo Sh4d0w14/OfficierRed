@@ -7,11 +7,10 @@
   },
   "permissions": [
     "webRequest",
-    "webRequestBlocking",
-    "http://localhost:5000/*",
     "storage",
-    "notifications"
-],
+    "notifications",
+    "declarativeNetRequest"
+  ],
   "host_permissions": [
     "http://localhost:5000/*"
   ],
@@ -20,5 +19,14 @@
   },
   "action": {
     "default_popup": "popup.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "rules1",
+        "path": "rules.json",
+        "enabled" : true
+      }
+    ]
   }
 }

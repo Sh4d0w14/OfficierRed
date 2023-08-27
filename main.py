@@ -3,8 +3,11 @@ import requests
 import json
 # import smtplib
 # from email.message import EmailMessage
+from flask_cors import CORS
 
 app = Flask(__name__)
+# CORS(app) # Ceci autorisera toutes les origines
+CORS(app, resources={r"/getData": {"origins": "chrome-extension://mffgljiccfmndchnjgjdflbljpohdfhd"}})
 
 RED_FLAG_URL = "https://dl.red.flag.domains/red.flag.domains.txt"
 
