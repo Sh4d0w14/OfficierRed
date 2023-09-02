@@ -1,32 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "Officier Red",
+  "name": "Red Flag Domains",
   "version": "1.0",
   "background": {
     "service_worker": "background.js"
   },
   "permissions": [
     "webRequest",
-    "storage",
-    "notifications",
-    "declarativeNetRequest"
+    // "webRequestBlocking",
+    "storage"
   ],
   "host_permissions": [
-    "http://localhost:5000/*"
+    "http://localhost:5000/*",
+    "<all_urls>"
   ],
   "icons": {
     "48": "icon.png"
   },
   "action": {
     "default_popup": "popup.html"
-  },
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "rules1",
-        "path": "rules.json",
-        "enabled" : true
-      }
-    ]
   }
 }
